@@ -1,0 +1,10 @@
+.idea
+*/obj/*
+*/bin/*
+.vs/
+[Bb]in/
+[Oo]bj/
+_UpgradeReport_Files/
+[Pp]ackages/
+*.DotSettings
+*.DotSettings.user
