@@ -5,7 +5,7 @@
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <ProjectGuid>{A0284294-A9FF-4FEE-95C6-1421D1B7C8EE}</ProjectGuid>
-        <OutputType>WinExe</OutputType>
+        <OutputType>Exe</OutputType>
         <RootNamespace>onscreen</RootNamespace>
         <AssemblyName>onscreen</AssemblyName>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
@@ -34,9 +34,14 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="HandyControl, Version=3.3.0.0, Culture=neutral, PublicKeyToken=45be8712787a1e5b">
+          <HintPath>packages\HandyControl.3.3.0\lib\net48\HandyControl.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
+        <Reference Include="System.Windows.Forms" />
         <Reference Include="System.Xml" />
         <Reference Include="System.Xaml">
             <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -50,7 +55,21 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </ApplicationDefinition>
-        <Page Include="MainWindow.xaml">
+        <Compile Include="Convertes\ComparisonConverter.cs" />
+        <Compile Include="GlobalHotKey.cs" />
+        <Compile Include="Properties\Annotations.cs" />
+        <Compile Include="Tool.cs" />
+        <Compile Include="UndoRedo\InkCanvasMementoDesigner.cs" />
+        <Compile Include="UndoRedo\Model\IMemento.cs" />
+        <Compile Include="UndoRedo\Model\IMementoCaretaker.cs" />
+        <Compile Include="UndoRedo\Model\IMementoDesigner.cs" />
+        <Compile Include="UndoRedo\StrokesMemento.cs" />
+        <Compile Include="UndoRedo\UndoRedoCaretaker.cs" />
+        <Compile Include="ViewModel\BaseCommand.cs" />
+        <Compile Include="ViewModel\BaseViewModel.cs" />
+        <Compile Include="ViewModel\WhiteBoardViewModel.cs" />
+        <Page Include="Resources\LocalResources.xaml" />
+        <Page Include="WhiteBoard.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </Page>
@@ -58,8 +77,8 @@
             <DependentUpon>App.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
-        <Compile Include="MainWindow.xaml.cs">
-            <DependentUpon>MainWindow.xaml</DependentUpon>
+        <Compile Include="WhiteBoard.xaml.cs">
+            <DependentUpon>WhiteBoard.xaml</DependentUpon>
             <SubType>Code</SubType>
         </Compile>
     </ItemGroup>
@@ -79,9 +98,13 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />
+        <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
       <Content Include=".gitignore" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Gestures" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,43 @@
+﻿<Window x:Class="onscreen.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:local="clr-namespace:onscreen"
+        xmlns:viewModel="clr-namespace:onscreen.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        Height="1080"
+        Width="1920"
+        WindowState="Maximized"
+        Topmost="True"
+        WindowStyle="None"
+        Background="Transparent"
+        ShowInTaskbar="False"
+        AllowsTransparency="True">
+    <Window.DataContext>
+        <viewModel:WhiteBoardViewModel />
+    </Window.DataContext>
+    <Grid>
+        <InkCanvas x:Name="paintWorkspace" Background="#01FFFFFF" Focusable="False">
+            <InkCanvas.DefaultDrawingAttributes>
+                <DrawingAttributes Color="White" FitToCurve="True" />
+            </InkCanvas.DefaultDrawingAttributes>
+        </InkCanvas>
+
+        <StackPanel Background="{StaticResource BackgroundBrush}" Orientation="Horizontal"
+                    Margin="5" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <RadioButton GroupName="Tools"
+                         IsChecked="{Binding Path=CurrentTool, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:Tool.Pen}}"
+                         Content="Pen"
+                         Margin="10 10 0 10" />
+            <!--<RadioButton GroupName="Tools" Content="Shape"
+                         IsChecked="{Binding Path=CurrentTool, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:Tool.Shape}}"
+                         Margin="10 10 10 10" />-->
+            <RadioButton GroupName="Tools" Content="Text"
+                         IsChecked="{Binding Path=CurrentTool, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:Tool.Text}}"
+                         Margin="10 10 10 10" />
+        </StackPanel>
+    </Grid>
+</Window>
