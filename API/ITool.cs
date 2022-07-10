@@ -6,6 +6,6 @@ namespace onscreen.API
     {
         ToolType ToolType { get; set; }
         
-        void Process(DrawingCanvas sender, DrawingProperties properties);
+        void Process(DrawingCanvas canvas, DrawingProperties properties);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using onscreen.Controls;
@@ -14,17 +15,25 @@ public class TextTool : ITool
         ToolType = ToolType.Text;
     }
 
-    public void Process(DrawingCanvas sender, DrawingProperties properties)
+    public void Process(DrawingCanvas canvas, DrawingProperties properties)
     {
-        sender.EditingMode = InkCanvasEditingMode.None;
+        canvas.EditingMode = InkCanvasEditingMode.None;
 
-        var textField = new TextField
+        if (!IsClickedToExistingTextField(canvas, properties))
         {
-            Margin = new Thickness(properties.Position.X, properties.Position.Y, 0, 0),
-            Width = 100,
-            Height = 50
-        };
-        sender.Children.Add(textField);
+            var textField = new TextField
+            {
+                Margin = new Thickness(properties.Position.X, properties.Position.Y, 0, 0),
+                Width = 100,
+                Height = 50
+            };
+            canvas.Children.Add(textField);
+        }
     }
 
+    private bool IsClickedToExistingTextField(DrawingCanvas canvas, DrawingProperties properties)
+    {
+        return canvas.Children.Cast<Control>().Any(c =>
+            new Rect(c.Margin.Left, c.Margin.Top, c.Width, c.Height).Contains(properties.Position));
+    }
 }

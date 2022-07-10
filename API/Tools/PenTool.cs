@@ -8,10 +8,9 @@ namespace onscreen.API.Tools
     {
         public ToolType ToolType { get; set; }
 
-        public void Process(DrawingCanvas sender, DrawingProperties properties)
+        public void Process(DrawingCanvas canvas, DrawingProperties properties)
         {
-            sender.EditingMode = InkCanvasEditingMode.Ink;
-            Console.WriteLine("Pen drawing   " + properties.Position);
+            canvas.EditingMode = InkCanvasEditingMode.Ink;
         }
 
         public PenTool()

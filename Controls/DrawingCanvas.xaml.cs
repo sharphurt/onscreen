@@ -30,9 +30,10 @@ namespace onscreen.Controls
             {
                 Console.WriteLine(CurrentTool.ToolType);
             }
+
             base.OnPropertyChanged(e);
         }
-        
+
         public DrawingCanvas()
         {
             InitializeComponent();
