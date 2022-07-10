@@ -42,6 +42,7 @@
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
+        <Reference Include="System.Drawing" />
         <Reference Include="System.Windows.Forms" />
         <Reference Include="System.Xml" />
         <Reference Include="System.Xaml">
@@ -62,6 +63,7 @@
         <Compile Include="API\Tools\PenTool.cs" />
         <Compile Include="API\Tools\TextTool.cs" />
         <Compile Include="API\ToolType.cs" />
+        <Compile Include="API\Util.cs" />
         <Compile Include="Controls\DrawingCanvas.xaml.cs">
           <DependentUpon>DrawingCanvas.xaml</DependentUpon>
         </Compile>
@@ -83,7 +85,9 @@
         <Compile Include="ViewModel\WhiteBoardViewModel.cs" />
         <Page Include="Controls\DrawingCanvas.xaml" />
         <Page Include="Controls\TextField.xaml" />
+        <Page Include="Resources\ControlTemplates.xaml" />
         <Page Include="Resources\LocalResources.xaml" />
+        <Page Include="Resources\Styles.xaml" />
         <Page Include="WhiteBoard.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>

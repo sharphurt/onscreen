@@ -15,46 +15,41 @@ public class TextTool : ITool
         ToolType = ToolType.Text;
     }
 
-    public Control ProcessCreating(DrawingCanvas canvas, DrawingProperties properties)
+    public void Initialize(DrawingCanvas canvas)
     {
         canvas.EditingMode = InkCanvasEditingMode.None;
+    }
 
-        if (!IsClickedToExistingTextField(canvas, properties))
-        {
-            var textField = new TextField
-            {
-                Margin = new Thickness(properties.Position.X, properties.Position.Y, 0, 0),
-                Width = 100,
-                Height = 50
-            };
-            canvas.Children.Add(textField);
-            return textField;
-        }
+    public Control ProcessCreating(DrawingCanvas canvas, DrawingProperties properties)
+    {
+        var textField = new TextField();
 
-        return null;
+        textField.Margin = new Thickness(
+            properties.Position.X - textField.MinWidth,
+            properties.Position.Y - textField.MinHeight, 0, 0);
+
+        canvas.Children.Add(textField);
+
+        textField.Focus();
+
+        return textField;
     }
 
     public void ProcessResizing(DrawingCanvas canvas, DrawingProperties properties)
     {
         var cursorPosition = properties.Position;
-        var controlX = properties.Control.Margin.Left;
-        var controlY = properties.Control.Margin.Top;
-        
-        properties.Control.Width = Math.Abs(cursorPosition.X - controlX);
-        properties.Control.Height = Math.Abs(cursorPosition.Y - controlY);
-    }
+        var control = properties.Control;
 
-    private bool IsClickedToExistingTextField(DrawingCanvas canvas, DrawingProperties properties)
-    {
-        return canvas.Children.Cast<Control>().Any(c =>
-            new Rect(c.Margin.Left, c.Margin.Top, c.Width, c.Height).Contains(properties.Position));
-    }
+        var controlX = control.Margin.Left;
+        var controlY = control.Margin.Top;
 
-    private Control GetControlUnderCursor(DrawingCanvas canvas, DrawingProperties properties)
-    {
-        var controls = canvas.Children.Cast<Control>().Where(c =>
-            new Rect(c.Margin.Left, c.Margin.Top, c.Width, c.Height).Contains(properties.Position)).ToList();
+        control.Width = Math.Abs(cursorPosition.X - controlX);
+        control.Height = Math.Abs(cursorPosition.Y - controlY);
 
-        return controls.Any() ? controls.First() : null;
+        var controlMinHeight = control.MinHeight;
+        if (Math.Abs(control.Width - control.MinWidth) > 1 || Math.Abs(control.Height - controlMinHeight) > 1)
+        {
+            ((TextField)control).IsSingleLine = false;
+        }
     }
 }

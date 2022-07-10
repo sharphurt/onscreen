@@ -5,9 +5,10 @@
            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
            mc:Ignorable="d"
            MouseUp="DrawingCanvas_OnMouseUp"
+           PreviewMouseUp="DrawingCanvas_OnPreviewMouseUp"
            PreviewMouseDown="DrawingCanvas_OnPreviewMouseDown"
            PreviewMouseMove="DrawingCanvas_OnPreviewMouseMove"
-           x:Name="paintWorkspace" Background="#01FFFFFF" Focusable="False">
+           x:Name="paintWorkspace" Background="#01FFFFFF" Focusable="True">
     <InkCanvas.DefaultDrawingAttributes>
         <DrawingAttributes Color="White" FitToCurve="True" />
     </InkCanvas.DefaultDrawingAttributes>

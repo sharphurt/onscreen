@@ -1,8 +1,28 @@
-﻿<RichTextBox x:Class="onscreen.Controls.TextField"
+﻿<UserControl x:Class="onscreen.Controls.TextField"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:onscreen.Controls"
+             d:DesignWidth="380" d:DesignHeight="480"
+             Padding="5"
+             MinWidth="80"
+             MinHeight="50"
+             Focusable="True"
+             GotFocus="TextField_OnGotFocus"
+             LostFocus="TextField_OnLostFocus"
              mc:Ignorable="d">
-</RichTextBox>
+    <Grid>
+        <TextBox x:Name="TextBox" Style="{StaticResource TextFieldStyle}" />
+        <Grid x:Name="SizeControls">
+            <Button Width="6" Height="6" PreviewMouseMove="TopLeftControl_MouseMove" HorizontalAlignment="Left"
+                    VerticalAlignment="Top" />
+            <Button Width="6" Height="6" PreviewMouseMove="TopRightControl_MouseMove" HorizontalAlignment="Right"
+                    VerticalAlignment="Top" />
+            <Button Width="6" Height="6" PreviewMouseMove="BottomRightControl_MouseMove" HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom" />
+            <Button Width="6" Height="6" PreviewMouseMove="BottomLeftControl_MouseMove" HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom" />
+        </Grid>
+    </Grid>
+</UserControl>

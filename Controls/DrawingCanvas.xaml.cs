@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -28,11 +29,13 @@ namespace onscreen.Controls
         {
             if (e.Property == CurrentToolProperty)
             {
-                Console.WriteLine(CurrentTool.ToolType);
+                CurrentTool.Initialize(this);
             }
 
             base.OnPropertyChanged(e);
         }
+
+        private bool _isActiveDrawing;
 
         private Control _lastCreatedControl;
 
@@ -65,20 +68,32 @@ namespace onscreen.Controls
 
         private void DrawingCanvas_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            _lastCreatedControl =
-                CurrentTool.ProcessCreating(this, new DrawingProperties { Position = e.GetPosition(this) });
+            if (CurrentTool.ToolType != ToolType.Pen && !Util.IsClickedToExistingControl(this, e.GetPosition(this)))
+            {
+                _lastCreatedControl =
+                    CurrentTool.ProcessCreating(this, new DrawingProperties { Position = e.GetPosition(this) });
+                _isActiveDrawing = true;
+                e.Handled = true;
+            }
         }
 
         private void DrawingCanvas_OnPreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed && _lastCreatedControl != null)
+            if (e.LeftButton == MouseButtonState.Pressed && _lastCreatedControl != null && _isActiveDrawing)
             {
                 CurrentTool.ProcessResizing(this, new DrawingProperties
                 {
                     Position = e.GetPosition(this),
                     Control = _lastCreatedControl
                 });
+
+                e.Handled = true;
             }
+        }
+
+        private void DrawingCanvas_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            _isActiveDrawing = false;
         }
     }
 }

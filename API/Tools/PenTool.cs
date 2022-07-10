@@ -8,15 +8,18 @@ namespace onscreen.API.Tools
     {
         public ToolType ToolType { get; set; }
 
-        public Control ProcessCreating(DrawingCanvas canvas, DrawingProperties properties)
+        public void Initialize(DrawingCanvas canvas)
         {
             canvas.EditingMode = InkCanvasEditingMode.Ink;
+        }
+
+        public Control ProcessCreating(DrawingCanvas canvas, DrawingProperties properties)
+        {
             return null;
         }
 
         public void ProcessResizing(DrawingCanvas canvas, DrawingProperties properties)
         {
-            
         }
 
         public PenTool()
