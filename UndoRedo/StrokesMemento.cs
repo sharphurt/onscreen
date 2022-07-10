@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Paint.UndoRedo.Model;
-using System.Windows.Ink;
+﻿using Paint.UndoRedo.Model;
 
-namespace Paint.UndoRedo
+namespace onscreen.UndoRedo
 {
     public class StrokesMemento : IMemento
     {

@@ -1,6 +1,6 @@
 ﻿namespace onscreen
 {
-    public enum Tool
+    public enum ToolType
     {
         Pen, 
         Highlighter,

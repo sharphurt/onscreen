@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Paint.UndoRedo.Model;
 using System.Windows.Ink;
+using onscreen.UndoRedo.Model;
 
 namespace Paint.UndoRedo
 {

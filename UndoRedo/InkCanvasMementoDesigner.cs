@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Paint.UndoRedo.Model;
+﻿using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Ink;
+using Paint.UndoRedo.Model;
 
-namespace Paint.UndoRedo
+namespace onscreen.UndoRedo
 {
     public class InkCanvasMementoDesigner : IMementoDesigner
     {

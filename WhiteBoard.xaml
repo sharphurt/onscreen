@@ -3,40 +3,41 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:local="clr-namespace:onscreen"
         xmlns:viewModel="clr-namespace:onscreen.ViewModel"
+        xmlns:controls="clr-namespace:onscreen.Controls"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="1080"
         Width="1920"
-        WindowState="Maximized"
+        WindowState="Normal"
         Topmost="True"
-        WindowStyle="None"
+        WindowStyle="SingleBorderWindow"
         Background="Transparent"
         ShowInTaskbar="False"
-        AllowsTransparency="True">
+   
+        AllowsTransparency="False"
+        >
     <Window.DataContext>
         <viewModel:WhiteBoardViewModel />
     </Window.DataContext>
     <Grid>
-        <InkCanvas x:Name="paintWorkspace" Background="#01FFFFFF" Focusable="False">
-            <InkCanvas.DefaultDrawingAttributes>
-                <DrawingAttributes Color="White" FitToCurve="True" />
-            </InkCanvas.DefaultDrawingAttributes>
-        </InkCanvas>
+        <controls:DrawingCanvas x:Name="DrawingCanvas"
+                                CurrentTool="{Binding CurrentTool, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
 
         <StackPanel Background="{StaticResource BackgroundBrush}" Orientation="Horizontal"
                     Margin="5" VerticalAlignment="Top" HorizontalAlignment="Center">
             <RadioButton GroupName="Tools"
-                         IsChecked="{Binding Path=CurrentTool, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:Tool.Pen}}"
+                         IsChecked="{Binding Path=CurrentTool.ToolType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ToolType.Pen}}"
                          Content="Pen"
-                         Margin="10 10 0 10" />
+                         Margin="10 10 0 10"
+                         Command="{Binding SelectToolCommand}" CommandParameter="{x:Static local:ToolType.Pen}" />
             <!--<RadioButton GroupName="Tools" Content="Shape"
                          IsChecked="{Binding Path=CurrentTool, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:Tool.Shape}}"
                          Margin="10 10 10 10" />-->
             <RadioButton GroupName="Tools" Content="Text"
-                         IsChecked="{Binding Path=CurrentTool, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:Tool.Text}}"
+                         IsChecked="{Binding Path=CurrentTool.ToolType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ToolType.Text}}"
+                         Command="{Binding SelectToolCommand}" CommandParameter="{x:Static local:ToolType.Text}"
                          Margin="10 10 10 10" />
         </StackPanel>
     </Grid>
