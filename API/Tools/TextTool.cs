@@ -15,7 +15,7 @@ public class TextTool : ITool
         ToolType = ToolType.Text;
     }
 
-    public void Process(DrawingCanvas canvas, DrawingProperties properties)
+    public Control ProcessCreating(DrawingCanvas canvas, DrawingProperties properties)
     {
         canvas.EditingMode = InkCanvasEditingMode.None;
 
@@ -28,12 +28,33 @@ public class TextTool : ITool
                 Height = 50
             };
             canvas.Children.Add(textField);
+            return textField;
         }
+
+        return null;
+    }
+
+    public void ProcessResizing(DrawingCanvas canvas, DrawingProperties properties)
+    {
+        var cursorPosition = properties.Position;
+        var controlX = properties.Control.Margin.Left;
+        var controlY = properties.Control.Margin.Top;
+        
+        properties.Control.Width = Math.Abs(cursorPosition.X - controlX);
+        properties.Control.Height = Math.Abs(cursorPosition.Y - controlY);
     }
 
     private bool IsClickedToExistingTextField(DrawingCanvas canvas, DrawingProperties properties)
     {
         return canvas.Children.Cast<Control>().Any(c =>
             new Rect(c.Margin.Left, c.Margin.Top, c.Width, c.Height).Contains(properties.Position));
+    }
+
+    private Control GetControlUnderCursor(DrawingCanvas canvas, DrawingProperties properties)
+    {
+        var controls = canvas.Children.Cast<Control>().Where(c =>
+            new Rect(c.Margin.Left, c.Margin.Top, c.Width, c.Height).Contains(properties.Position)).ToList();
+
+        return controls.Any() ? controls.First() : null;
     }
 }

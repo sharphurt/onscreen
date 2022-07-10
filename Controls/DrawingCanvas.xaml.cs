@@ -34,6 +34,8 @@ namespace onscreen.Controls
             base.OnPropertyChanged(e);
         }
 
+        private Control _lastCreatedControl;
+
         public DrawingCanvas()
         {
             InitializeComponent();
@@ -63,7 +65,20 @@ namespace onscreen.Controls
 
         private void DrawingCanvas_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            CurrentTool.Process(this, new DrawingProperties(e.GetPosition(this)));
+            _lastCreatedControl =
+                CurrentTool.ProcessCreating(this, new DrawingProperties { Position = e.GetPosition(this) });
+        }
+
+        private void DrawingCanvas_OnPreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed && _lastCreatedControl != null)
+            {
+                CurrentTool.ProcessResizing(this, new DrawingProperties
+                {
+                    Position = e.GetPosition(this),
+                    Control = _lastCreatedControl
+                });
+            }
         }
     }
 }

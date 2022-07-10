@@ -58,6 +58,7 @@
         </ApplicationDefinition>
         <Compile Include="API\ITool.cs" />
         <Compile Include="API\DrawingProperties.cs" />
+        <Compile Include="API\Selection.cs" />
         <Compile Include="API\Tools\PenTool.cs" />
         <Compile Include="API\Tools\TextTool.cs" />
         <Compile Include="API\ToolType.cs" />

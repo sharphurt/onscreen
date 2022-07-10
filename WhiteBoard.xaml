@@ -10,13 +10,12 @@
         Title="MainWindow"
         Height="1080"
         Width="1920"
-        WindowState="Normal"
+        WindowState="Maximized"
         Topmost="True"
-        WindowStyle="SingleBorderWindow"
+        WindowStyle="None"
         Background="Transparent"
         ShowInTaskbar="False"
-   
-        AllowsTransparency="False"
+        AllowsTransparency="True"
         >
     <Window.DataContext>
         <viewModel:WhiteBoardViewModel />

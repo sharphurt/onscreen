@@ -1,4 +1,5 @@
-﻿using onscreen.Controls;
+﻿using System.Windows.Controls;
+using onscreen.Controls;
 
 namespace onscreen.API
 {
@@ -6,6 +7,8 @@ namespace onscreen.API
     {
         ToolType ToolType { get; set; }
         
-        void Process(DrawingCanvas canvas, DrawingProperties properties);
+        Control ProcessCreating(DrawingCanvas canvas, DrawingProperties properties);
+        
+        void ProcessResizing(DrawingCanvas canvas, DrawingProperties properties);
     }
 }

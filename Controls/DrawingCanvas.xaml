@@ -6,6 +6,7 @@
            mc:Ignorable="d"
            MouseUp="DrawingCanvas_OnMouseUp"
            PreviewMouseDown="DrawingCanvas_OnPreviewMouseDown"
+           PreviewMouseMove="DrawingCanvas_OnPreviewMouseMove"
            x:Name="paintWorkspace" Background="#01FFFFFF" Focusable="False">
     <InkCanvas.DefaultDrawingAttributes>
         <DrawingAttributes Color="White" FitToCurve="True" />
