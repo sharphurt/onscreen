@@ -64,6 +64,9 @@
         <Compile Include="Controls\DrawingCanvas.xaml.cs">
           <DependentUpon>DrawingCanvas.xaml</DependentUpon>
         </Compile>
+        <Compile Include="Controls\TextField.xaml.cs">
+          <DependentUpon>TextField.xaml</DependentUpon>
+        </Compile>
         <Compile Include="Convertes\ComparisonConverter.cs" />
         <Compile Include="GlobalHotKey.cs" />
         <Compile Include="Properties\Annotations.cs" />
@@ -78,6 +81,7 @@
         <Compile Include="ViewModel\BaseViewModel.cs" />
         <Compile Include="ViewModel\WhiteBoardViewModel.cs" />
         <Page Include="Controls\DrawingCanvas.xaml" />
+        <Page Include="Controls\TextField.xaml" />
         <Page Include="Resources\LocalResources.xaml" />
         <Page Include="WhiteBoard.xaml">
             <Generator>MSBuild:Compile</Generator>

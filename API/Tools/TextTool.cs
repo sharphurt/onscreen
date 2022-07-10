@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using onscreen.Controls;
 
@@ -16,6 +17,14 @@ public class TextTool : ITool
     public void Process(DrawingCanvas sender, DrawingProperties properties)
     {
         sender.EditingMode = InkCanvasEditingMode.None;
-        Console.WriteLine("Text drawing   " + properties.Position);
+
+        var textField = new TextField
+        {
+            Margin = new Thickness(properties.Position.X, properties.Position.Y, 0, 0),
+            Width = 100,
+            Height = 50
+        };
+        sender.Children.Add(textField);
     }
+
 }
