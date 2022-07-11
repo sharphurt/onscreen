@@ -3,26 +3,98 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:onscreen.Controls"
-             d:DesignWidth="380" d:DesignHeight="480"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             d:DesignWidth="480" d:DesignHeight="360"
              Padding="5"
              MinWidth="80"
              MinHeight="50"
              Focusable="True"
+             x:Name="TextFieldControl"
              GotFocus="TextField_OnGotFocus"
              LostFocus="TextField_OnLostFocus"
              mc:Ignorable="d">
-    <Grid>
-        <TextBox x:Name="TextBox" Style="{StaticResource TextFieldStyle}" />
-        <Grid x:Name="SizeControls">
-            <Button Width="6" Height="6" PreviewMouseMove="TopLeftControl_MouseMove" HorizontalAlignment="Left"
-                    VerticalAlignment="Top" />
-            <Button Width="6" Height="6" PreviewMouseMove="TopRightControl_MouseMove" HorizontalAlignment="Right"
-                    VerticalAlignment="Top" />
-            <Button Width="6" Height="6" PreviewMouseMove="BottomRightControl_MouseMove" HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom" />
-            <Button Width="6" Height="6" PreviewMouseMove="BottomLeftControl_MouseMove" HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom" />
+    <DockPanel>
+        <Grid DockPanel.Dock="Top" Visibility="Collapsed" x:Name="TextFormatingPanel" HorizontalAlignment="Center"
+              VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal" Background="White">
+                <ToggleButton x:Name="ButtonBold" Style="{StaticResource ToggleButtonStyle}"
+                              CommandTarget="{Binding ElementName=TextBox}"
+                              Command="EditingCommands.ToggleBold"
+                              Margin="12, 8, 8, 8">
+                    <Image Source="{StaticResource BoldIcon}" Width="16" Height="16" />
+                </ToggleButton>
+                <ToggleButton x:Name="ButtonItalic" Style="{StaticResource ToggleButtonStyle}"
+                              CommandTarget="{Binding ElementName=TextBox}"
+                              hc:IconElement.Geometry="{StaticResource BoldGeometry}"
+                              Command="EditingCommands.ToggleItalic"
+                              Margin="0, 8, 8, 8">
+                    <Image Source="{StaticResource ItalicIcon}" Width="16" Height="16" />
+                </ToggleButton>
+                <ToggleButton x:Name="ButtonUnderline" Style="{StaticResource ToggleButtonStyle}"
+                              CommandTarget="{Binding ElementName=TextBox}"
+                              Command="EditingCommands.ToggleUnderline"
+                              Margin="0, 8, 8, 8">
+                    <Image Source="{StaticResource UnderlineIcon}" Width="16" Height="16" />
+                </ToggleButton>
+
+                <ComboBox Margin="12, 8" Width="160" IsEditable="False" SelectedIndex="0" SelectionChanged="Selector_OnSelectionChanged">
+                    <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
+                                  Content="Arial"
+                                  FontSize="14"
+                                  FontFamily="Arial" />
+                    <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
+                                  Content="Impact"
+                                  FontSize="14"
+                                  FontFamily="Impact" />
+                    <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
+                                  Content="Comic Sans MS"
+                                  FontSize="14"
+                                  FontFamily="Comic Sans MS" />
+                    <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
+                                  Content="Times New Roman"
+                                  FontSize="16"
+                                  FontFamily="Times New Roman" />
+                </ComboBox>
+
+                <StackPanel Orientation="Horizontal" Margin="12, 8">
+                    <TextBlock Text="A" FontSize="18" VerticalAlignment="Center" />
+                    <Slider Minimum="8" Maximum="72" Width="100" VerticalAlignment="Center" />
+                    <TextBlock Text="A" FontSize="28" VerticalAlignment="Center" />
+                </StackPanel>
+            </StackPanel>
         </Grid>
-    </Grid>
+        <Grid DockPanel.Dock="Top" x:Name="ContentContainer">
+            <RichTextBox x:Name="TextBox" Style="{StaticResource TextFieldStyle}"
+                         SelectionChanged="TextBox_OnSelectionChanged" />
+            <Grid x:Name="TransformControls">
+                <Button Width="6" Height="6" PreviewMouseMove="TopLeftControl_MouseMove"
+                        HorizontalAlignment="Left"
+                        Cursor="SizeNWSE"
+                        Style="{StaticResource CornerControl}"
+                        VerticalAlignment="Top" />
+                <Button Width="6" Height="6" PreviewMouseMove="TopRightControl_MouseMove"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource CornerControl}"
+                        Cursor="SizeNESW"
+                        VerticalAlignment="Top" />
+                <Button Width="6" Height="6" PreviewMouseMove="BottomRightControl_MouseMove"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource CornerControl}"
+                        Cursor="SizeNWSE"
+                        VerticalAlignment="Bottom" />
+                <Button Width="6" Height="6" PreviewMouseMove="BottomLeftControl_MouseMove"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource CornerControl}"
+                        Cursor="SizeNESW"
+                        VerticalAlignment="Bottom" />
+                <Button Width="36" Height="36" PreviewMouseMove="PositionControl_MouseMove"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource DragControl}"
+                        Cursor="SizeAll">
+                    <Image Source="{StaticResource MoveIcon}" Width="24" Height="24" />
+                </Button>
+            </Grid>
+        </Grid>
+    </DockPanel>
 </UserControl>

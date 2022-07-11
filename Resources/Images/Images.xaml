@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <BitmapImage x:Key="MoveIcon" UriSource="move.png" />
+
+    <Geometry o:Freeze="True" x:Key="BoldGeometry">M321.1 242.4c19-22.3 30.9-50.8 30.9-82.4c0-70.59-57.42-128-128-128l-192 .01c-17.67 0-32 14.31-32 32s14.33 32 32 32h16v320H32c-17.67 0-32 14.31-32 32s14.33 32 32 32h224c70.58 0 128-57.41 128-128c0-46.71-25.4-87.21-62.9-109.61zM112 96.01h112c35.3 0 64 28.72 64 64s-28.7 64-64 64H112v-128zM256 416H112V288h144c35.3 0 64 28.71 64 63.1S291.3 416 256 416z</Geometry>
+    <Geometry o:Freeze="True" x:Key="ItalicGeometry">M384 64.01c0 17.69-14.31 32-32 32h-58.67l-133.3 320H224c17.69 0 32 14.31 32 32s-14.31 32-32 32H32c-17.69 0-32-14.31-32-32s14.31-32 32-32h58.67l133.3-320H160c-17.69 0-32-14.31-32-32s14.31-32 32-32h192c17.7 0 32 14.32 32 32z</Geometry>
+    <Geometry o:Freeze="True" x:Key="UnderlineGeometry">M416 448H32c-17.69 0-32 14.31-32 32s14.31 32 32 32h384c17.69 0 32-14.31 32-32s-14.3-32-32-32zM48 64.01h16v160c0 88.22 71.78 159.1 160 159.1s160-71.78 160-159.1v-160h16c17.69 0 32-14.32 32-32S417.69.91 400 .91l-96-.005c-17.69 0-32 14.32-32 32s14.31 32 32 32h16v160c0 52.94-43.06 95.1-96 95.1S128 276.1 128 224V64h16c17.69 0 32-14.31 32-32S161.69 0 144 0L48 .005c-17.69 0-32 14.31-32 31.1S30.31 64.01 48 64.01z</Geometry>
+
+    <DrawingImage x:Key="BoldIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Black" Geometry="{StaticResource BoldGeometry}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    
+    <DrawingImage x:Key="ItalicIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Black" Geometry="{StaticResource ItalicGeometry}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="UnderlineIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Black" Geometry="{StaticResource UnderlineGeometry}" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>

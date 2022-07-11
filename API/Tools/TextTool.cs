@@ -45,11 +45,5 @@ public class TextTool : ITool
 
         control.Width = Math.Abs(cursorPosition.X - controlX);
         control.Height = Math.Abs(cursorPosition.Y - controlY);
-
-        var controlMinHeight = control.MinHeight;
-        if (Math.Abs(control.Width - control.MinWidth) > 1 || Math.Abs(control.Height - controlMinHeight) > 1)
-        {
-            ((TextField)control).IsSingleLine = false;
-        }
     }
 }

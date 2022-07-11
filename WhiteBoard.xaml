@@ -23,7 +23,7 @@
         <controls:DrawingCanvas x:Name="DrawingCanvas"
                                 CurrentTool="{Binding CurrentTool, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" />
 
-        <StackPanel Background="{StaticResource BackgroundBrush}" Orientation="Horizontal"
+        <StackPanel Background="White" Orientation="Horizontal"
                     Margin="5" VerticalAlignment="Top" HorizontalAlignment="Center">
             <RadioButton GroupName="Tools"
                          IsChecked="{Binding Path=CurrentTool.ToolType, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:ToolType.Pen}}"

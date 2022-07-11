@@ -82,10 +82,12 @@
         <Compile Include="UndoRedo\UndoRedoCaretaker.cs" />
         <Compile Include="ViewModel\BaseCommand.cs" />
         <Compile Include="ViewModel\BaseViewModel.cs" />
+        <Compile Include="ViewModel\TextFieldViewModel.cs" />
         <Compile Include="ViewModel\WhiteBoardViewModel.cs" />
         <Page Include="Controls\DrawingCanvas.xaml" />
         <Page Include="Controls\TextField.xaml" />
         <Page Include="Resources\ControlTemplates.xaml" />
+        <Page Include="Resources\Images\Images.xaml" />
         <Page Include="Resources\LocalResources.xaml" />
         <Page Include="Resources\Styles.xaml" />
         <Page Include="WhiteBoard.xaml">
@@ -121,6 +123,9 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include=".gitignore" />
+      <Content Include="Resources\Images\move.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
