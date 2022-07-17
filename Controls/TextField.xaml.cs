@@ -123,29 +123,56 @@ public partial class TextField : UserControl
         Margin = new Thickness(Margin.Left, Margin.Top - 36, 0, 0);
     }
 
-    private void TextBox_OnSelectionChanged(object sender, RoutedEventArgs e)
-    {
-        object temp = TextBox.Selection.GetPropertyValue(Inline.FontWeightProperty);
-        ButtonBold.IsChecked = (temp != DependencyProperty.UnsetValue) && (temp.Equals(FontWeights.Bold));
-
-        temp = TextBox.Selection.GetPropertyValue(Inline.FontStyleProperty);
-        ButtonItalic.IsChecked = (temp != DependencyProperty.UnsetValue) && (temp.Equals(FontStyles.Italic));
-
-        temp = TextBox.Selection.GetPropertyValue(Inline.TextDecorationsProperty);
-        ButtonUnderline.IsChecked = (temp != DependencyProperty.UnsetValue) && (temp.Equals(TextDecorations.Underline));
-
-        /*
-        temp = TextBox.Selection.GetPropertyValue(Inline.FontFamilyProperty);
-        cmbFontFamily.SelectedItem = temp;
-        temp = rtbEditor.Selection.GetPropertyValue(Inline.FontSizeProperty);
-        cmbFontSize.Text = temp.ToString(); */
-    }
-
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var comboBox = ((ComboBox)sender);
-        Console.WriteLine(((ComboBoxItem)comboBox.SelectedItem).Content);
-        comboBox.FontFamily = new FontFamily((string)((ComboBoxItem)comboBox.SelectedItem).Content);
+        var selectedFontFamily = new FontFamily((string)((ComboBoxItem)comboBox.SelectedItem).Content);
+        comboBox.FontFamily = selectedFontFamily;
         comboBox.FontSize = ((ComboBoxItem)comboBox.SelectedItem).FontSize;
+
+        if (TextBox is not null)
+            TextBox.FontFamily = selectedFontFamily;
+    }
+
+    private void RangeBase_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+    {
+        if (TextBox is not null)
+            TextBox.FontSize = e.NewValue;
+    }
+
+    private void ButtonBold_OnChecked(object sender, RoutedEventArgs e)
+    {
+        if (TextBox is not null)
+            TextBox.FontWeight = FontWeights.Bold;
+    }
+
+    private void ButtonBold_OnUnchecked(object sender, RoutedEventArgs e)
+    {
+        if (TextBox is not null)
+            TextBox.FontWeight = FontWeights.Normal;
+    }
+
+    private void ButtonItalic_OnChecked(object sender, RoutedEventArgs e)
+    {
+        if (TextBox is not null)
+            TextBox.FontStyle = FontStyles.Italic;
+    }
+
+    private void ButtonItalic_OnUnchecked(object sender, RoutedEventArgs e)
+    {
+        if (TextBox is not null)
+            TextBox.FontStyle = FontStyles.Normal;
+    }
+
+    private void ButtonUnderline_OnChecked(object sender, RoutedEventArgs e)
+    {
+        if (TextBox is not null)
+            TextBox.TextDecorations = TextDecorations.Underline;
+    }
+
+    private void ButtonUnderline_OnUnchecked(object sender, RoutedEventArgs e)
+    {
+        if (TextBox is not null)
+            TextBox.TextDecorations = null;
     }
 }

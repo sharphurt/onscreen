@@ -15,10 +15,10 @@
             </DrawingGroup>
         </DrawingBrush.Drawing>
     </DrawingBrush>
-    
+
     <SolidColorBrush x:Key="SolidBrush" Color="Gray" />
-    
-    <ControlTemplate x:Key="TextFieldControlTemplate" TargetType="RichTextBox">
+
+    <ControlTemplate x:Key="TextFieldControlTemplate" TargetType="TextBox">
         <Grid>
             <Border
                 Margin="3"
@@ -42,8 +42,8 @@
             </AdornerDecorator>
         </Border>
     </ControlTemplate>
-    
-    
+
+
     <ControlTemplate x:Key="ToggleButtonControlTemplate" TargetType="ToggleButton">
         <Border CornerRadius="3"
                 Background="{TemplateBinding Background}"
@@ -54,8 +54,8 @@
             </AdornerDecorator>
         </Border>
     </ControlTemplate>
-    
-        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+
+    <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -98,5 +98,65 @@
 
     <ControlTemplate x:Key="ComboBoxTextBox" TargetType="TextBox">
         <Border x:Name="PART_ContentHost" Background="{TemplateBinding Background}" Focusable="False" />
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="HorizontalSlider" TargetType="{x:Type Slider}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"
+                               MinHeight="{TemplateBinding MinHeight}" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TickBar x:Name="TopTick"
+                     SnapsToDevicePixels="True"
+                     Placement="Top"
+                     Height="4"
+                     Visibility="Collapsed">
+                <TickBar.Fill>
+                    <SolidColorBrush Color="{DynamicResource GlyphColor}" />
+                </TickBar.Fill>
+            </TickBar>
+            <Border x:Name="TrackBackground"
+                    Margin="0"
+                    CornerRadius="2"
+                    Height="4"
+                    Grid.Row="1"
+                    BorderBrush="LightGray"
+                    Background="White"
+                    BorderThickness="1">
+            </Border>
+            <Track Grid.Row="1"
+                   x:Name="PART_Track">
+                <Track.DecreaseRepeatButton>
+                    <RepeatButton Style="{StaticResource SliderButtonStyle}" Command="Slider.DecreaseLarge" />
+                </Track.DecreaseRepeatButton>
+                <Track.Thumb>
+                    <Thumb Style="{StaticResource SliderThumbStyle}" />
+                </Track.Thumb>
+                <Track.IncreaseRepeatButton>
+                    <RepeatButton Style="{StaticResource SliderButtonStyle}" Command="Slider.IncreaseLarge" />
+                </Track.IncreaseRepeatButton>
+            </Track>
+            <TickBar x:Name="BottomTick"
+                     SnapsToDevicePixels="True"
+                     Grid.Row="2"
+                     Fill="{TemplateBinding Foreground}"
+                     Placement="Bottom"
+                     Height="4"
+                     Visibility="Collapsed" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement" Value="TopLeft">
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="BottomRight">
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="Both">
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>

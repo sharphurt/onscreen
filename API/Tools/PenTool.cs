@@ -10,7 +10,7 @@ namespace onscreen.API.Tools
 
         public void Initialize(DrawingCanvas canvas)
         {
-            canvas.EditingMode = InkCanvasEditingMode.Ink;
+            canvas.InkCanvas.EditingMode = InkCanvasEditingMode.Ink;
         }
 
         public Control ProcessCreating(DrawingCanvas canvas, DrawingProperties properties)

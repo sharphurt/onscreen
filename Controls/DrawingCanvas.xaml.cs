@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Shapes;
 using onscreen.API;
 using onscreen.UndoRedo;
 using onscreen.UndoRedo.Model;
@@ -12,7 +13,7 @@ using Paint.UndoRedo.Model;
 
 namespace onscreen.Controls
 {
-    public partial class DrawingCanvas : InkCanvas
+    public partial class DrawingCanvas : Canvas
     {
         private readonly IMementoCaretaker _undoRedoCaretaker;
 
@@ -45,7 +46,7 @@ namespace onscreen.Controls
 
             paintWorkspace.MouseUp += DrawingCanvas_OnMouseUp;
 
-            var mementoDesigner = new InkCanvasMementoDesigner(paintWorkspace);
+            var mementoDesigner = new InkCanvasMementoDesigner(InkCanvas);
             _undoRedoCaretaker = new UndoRedoCaretaker(mementoDesigner);
             _undoRedoCaretaker.Initialize();
         }

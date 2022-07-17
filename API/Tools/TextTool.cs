@@ -17,7 +17,7 @@ public class TextTool : ITool
 
     public void Initialize(DrawingCanvas canvas)
     {
-        canvas.EditingMode = InkCanvasEditingMode.None;
+        canvas.InkCanvas.EditingMode = InkCanvasEditingMode.None;
     }
 
     public Control ProcessCreating(DrawingCanvas canvas, DrawingProperties properties)

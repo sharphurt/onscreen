@@ -18,26 +18,27 @@
               VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal" Background="White">
                 <ToggleButton x:Name="ButtonBold" Style="{StaticResource ToggleButtonStyle}"
-                              CommandTarget="{Binding ElementName=TextBox}"
-                              Command="EditingCommands.ToggleBold"
+                              Checked="ButtonBold_OnChecked"
+                              Unchecked="ButtonBold_OnUnchecked"
                               Margin="12, 8, 8, 8">
                     <Image Source="{StaticResource BoldIcon}" Width="16" Height="16" />
                 </ToggleButton>
                 <ToggleButton x:Name="ButtonItalic" Style="{StaticResource ToggleButtonStyle}"
-                              CommandTarget="{Binding ElementName=TextBox}"
                               hc:IconElement.Geometry="{StaticResource BoldGeometry}"
-                              Command="EditingCommands.ToggleItalic"
+                              Checked="ButtonItalic_OnChecked"
+                              Unchecked="ButtonItalic_OnUnchecked"
                               Margin="0, 8, 8, 8">
                     <Image Source="{StaticResource ItalicIcon}" Width="16" Height="16" />
                 </ToggleButton>
                 <ToggleButton x:Name="ButtonUnderline" Style="{StaticResource ToggleButtonStyle}"
-                              CommandTarget="{Binding ElementName=TextBox}"
-                              Command="EditingCommands.ToggleUnderline"
+                              Checked="ButtonUnderline_OnChecked"
+                              Unchecked="ButtonUnderline_OnUnchecked"
                               Margin="0, 8, 8, 8">
                     <Image Source="{StaticResource UnderlineIcon}" Width="16" Height="16" />
                 </ToggleButton>
 
-                <ComboBox Margin="12, 8" Width="160" IsEditable="False" SelectedIndex="0" SelectionChanged="Selector_OnSelectionChanged">
+                <ComboBox Margin="12, 8" Width="160" IsEditable="False" SelectedIndex="0" 
+                          SelectionChanged="Selector_OnSelectionChanged">
                     <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
                                   Content="Arial"
                                   FontSize="14"
@@ -57,15 +58,18 @@
                 </ComboBox>
 
                 <StackPanel Orientation="Horizontal" Margin="12, 8">
-                    <TextBlock Text="A" FontSize="18" VerticalAlignment="Center" />
-                    <Slider Minimum="8" Maximum="72" Width="100" VerticalAlignment="Center" />
-                    <TextBlock Text="A" FontSize="28" VerticalAlignment="Center" />
+                    <TextBlock Text="A" FontSize="12" VerticalAlignment="Center" />
+                    <Slider Minimum="12" Maximum="20" Width="100" Margin="8,0" 
+                            VerticalAlignment="Center"
+                            TickFrequency="1"
+                            IsSnapToTickEnabled="True"
+                            ValueChanged="RangeBase_OnValueChanged" />
+                    <TextBlock Text="A" FontSize="20" VerticalAlignment="Center" />
                 </StackPanel>
             </StackPanel>
         </Grid>
         <Grid DockPanel.Dock="Top" x:Name="ContentContainer">
-            <RichTextBox x:Name="TextBox" Style="{StaticResource TextFieldStyle}"
-                         SelectionChanged="TextBox_OnSelectionChanged" />
+            <TextBox x:Name="TextBox" Style="{StaticResource TextFieldStyle}" FontFamily="Arial" FontSize="12" />
             <Grid x:Name="TransformControls">
                 <Button Width="6" Height="6" PreviewMouseMove="TopLeftControl_MouseMove"
                         HorizontalAlignment="Left"
