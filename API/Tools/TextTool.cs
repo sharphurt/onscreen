@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,28 +23,41 @@ public class TextTool : ITool
 
     public Control ProcessCreating(DrawingCanvas canvas, DrawingProperties properties)
     {
+        RemoveAllEmpty(canvas);
+
         var textField = new TextField();
 
         textField.Margin = new Thickness(
             properties.Position.X - textField.MinWidth,
             properties.Position.Y - textField.MinHeight, 0, 0);
 
+        textField.DeleteEvent += () => canvas.Children.Remove(textField);
+        
         canvas.Children.Add(textField);
-
         textField.Focus();
-
+        
         return textField;
     }
 
     public void ProcessResizing(DrawingCanvas canvas, DrawingProperties properties)
     {
         var cursorPosition = properties.Position;
-        var control = properties.Control;
+        var control = (TextField)properties.Control;
 
         var controlX = control.Margin.Left;
-        var controlY = control.Margin.Top;
+        var controlY = control.Margin.Top + 50;
 
-        control.Width = Math.Abs(cursorPosition.X - controlX);
-        control.Height = Math.Abs(cursorPosition.Y - controlY);
+        control.ContentContainer.Width = Math.Abs(cursorPosition.X - controlX);
+        control.ContentContainer.Height = Math.Abs(cursorPosition.Y - controlY);
+    }
+
+    private void RemoveAllEmpty(DrawingCanvas canvas)
+    {
+        var allEmpty = (from child in canvas.Children.OfType<TextField>()
+            let text = child.TextBox.Text
+            where string.IsNullOrEmpty(text) || string.IsNullOrWhiteSpace(text)
+            select child).ToList();
+
+        allEmpty.ForEach(o => canvas.Children.Remove(o));
     }
 }

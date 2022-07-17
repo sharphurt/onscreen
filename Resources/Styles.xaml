@@ -6,6 +6,7 @@
         <Setter Property="Foreground" Value="White" />
         <Setter Property="CaretBrush" Value="White" />
         <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="Template" Value="{StaticResource TextFieldControlTemplate}" />
     </Style>
 
@@ -107,8 +108,42 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
+    
+    <Style x:Key="SimpleButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="White" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Width" Value="36" />
+        <Setter Property="Height" Value="36" />
+        <Setter Property="Template" Value="{StaticResource SimpleButtonControlTemplate}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <BeginStoryboard.Storyboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                To="{StaticResource ToggleButtonMouseOver}" Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard.Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <BeginStoryboard.Storyboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                From="{StaticResource ToggleButtonMouseOver}" Duration="0:0:0.1" />
+                            </Storyboard>
+                        </BeginStoryboard.Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
-
+    
     <Style x:Key="ComboBoxBoxElement" TargetType="Grid">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">

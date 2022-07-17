@@ -55,6 +55,17 @@
         </Border>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="SimpleButtonControlTemplate" TargetType="Button">
+        <Border CornerRadius="3"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+            <AdornerDecorator HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ContentPresenter x:Name="ContentPresenter" />
+            </AdornerDecorator>
+        </Border>
+    </ControlTemplate>
+    
     <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
         <Grid>
             <Grid.ColumnDefinitions>

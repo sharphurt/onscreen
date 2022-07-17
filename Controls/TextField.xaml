@@ -6,17 +6,15 @@
              xmlns:hc="https://handyorg.github.io/handycontrol"
              d:DesignWidth="480" d:DesignHeight="360"
              Padding="5"
-             MinWidth="80"
-             MinHeight="50"
              Focusable="True"
              x:Name="TextFieldControl"
              GotFocus="TextField_OnGotFocus"
              LostFocus="TextField_OnLostFocus"
              mc:Ignorable="d">
-    <DockPanel>
-        <Grid DockPanel.Dock="Top" Visibility="Collapsed" x:Name="TextFormatingPanel" HorizontalAlignment="Center"
+    <Grid>
+        <Border CornerRadius="3" Visibility="Collapsed" Background="White" x:Name="TextFormatingPanel" HorizontalAlignment="Center"
               VerticalAlignment="Top">
-            <StackPanel Orientation="Horizontal" Background="White">
+            <StackPanel Orientation="Horizontal">
                 <ToggleButton x:Name="ButtonBold" Style="{StaticResource ToggleButtonStyle}"
                               Checked="ButtonBold_OnChecked"
                               Unchecked="ButtonBold_OnUnchecked"
@@ -37,7 +35,7 @@
                     <Image Source="{StaticResource UnderlineIcon}" Width="16" Height="16" />
                 </ToggleButton>
 
-                <ComboBox Margin="12, 8" Width="160" IsEditable="False" SelectedIndex="0" 
+                <ComboBox Margin="12, 8" Width="160" IsEditable="False" SelectedIndex="0"
                           SelectionChanged="Selector_OnSelectionChanged">
                     <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
                                   Content="Arial"
@@ -59,37 +57,29 @@
 
                 <StackPanel Orientation="Horizontal" Margin="12, 8">
                     <TextBlock Text="A" FontSize="12" VerticalAlignment="Center" />
-                    <Slider Minimum="12" Maximum="20" Width="100" Margin="8,0" 
+                    <Slider Minimum="12" Maximum="40" Width="100" Margin="8,0"
                             VerticalAlignment="Center"
                             TickFrequency="1"
                             IsSnapToTickEnabled="True"
                             ValueChanged="RangeBase_OnValueChanged" />
                     <TextBlock Text="A" FontSize="20" VerticalAlignment="Center" />
                 </StackPanel>
+                
+                <Button Margin="16, 8, 24, 8" Style="{StaticResource SimpleButtonStyle}" Click="DeleteButton_Click" Focusable="False">
+                    <Image Source="{StaticResource DeleteIcon}" Width="16" Height="16" />
+                </Button>
             </StackPanel>
-        </Grid>
-        <Grid DockPanel.Dock="Top" x:Name="ContentContainer">
+        </Border>
+        <Grid x:Name="ContentContainer" HorizontalAlignment="Left"
+              VerticalAlignment="Top"
+              Margin="0,55,0,0"
+              MinHeight="90" MinWidth="120">
             <TextBox x:Name="TextBox" Style="{StaticResource TextFieldStyle}" FontFamily="Arial" FontSize="12" />
             <Grid x:Name="TransformControls">
-                <Button Width="6" Height="6" PreviewMouseMove="TopLeftControl_MouseMove"
-                        HorizontalAlignment="Left"
-                        Cursor="SizeNWSE"
-                        Style="{StaticResource CornerControl}"
-                        VerticalAlignment="Top" />
-                <Button Width="6" Height="6" PreviewMouseMove="TopRightControl_MouseMove"
-                        HorizontalAlignment="Right"
-                        Style="{StaticResource CornerControl}"
-                        Cursor="SizeNESW"
-                        VerticalAlignment="Top" />
                 <Button Width="6" Height="6" PreviewMouseMove="BottomRightControl_MouseMove"
                         HorizontalAlignment="Right"
                         Style="{StaticResource CornerControl}"
                         Cursor="SizeNWSE"
-                        VerticalAlignment="Bottom" />
-                <Button Width="6" Height="6" PreviewMouseMove="BottomLeftControl_MouseMove"
-                        HorizontalAlignment="Left"
-                        Style="{StaticResource CornerControl}"
-                        Cursor="SizeNESW"
                         VerticalAlignment="Bottom" />
                 <Button Width="36" Height="36" PreviewMouseMove="PositionControl_MouseMove"
                         VerticalAlignment="Center"
@@ -100,5 +90,5 @@
                 </Button>
             </Grid>
         </Grid>
-    </DockPanel>
+    </Grid>
 </UserControl>
