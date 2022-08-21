@@ -57,7 +57,7 @@ public partial class TextField : UserControl
         TextBox.BorderThickness = new Thickness(0);
         TransformControls.Visibility = Visibility.Hidden;
         TextFormatingPanel.Visibility = Visibility.Collapsed;
-        Margin = new Thickness(Margin.Left, Margin.Top, 0, 0);
+        Margin = new Thickness(Margin.Left, Margin.Top, 0, 0); 
     }
 
     private void TextField_OnGotFocus(object sender, RoutedEventArgs e)

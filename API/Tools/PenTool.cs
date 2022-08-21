@@ -22,6 +22,10 @@ namespace onscreen.API.Tools
         {
         }
 
+        public void RemoveAllEmpty(DrawingCanvas canvas)
+        {
+        }
+
         public PenTool()
         {
             ToolType = ToolType.Pen;

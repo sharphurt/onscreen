@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Shapes;
 using onscreen.API;
+using onscreen.API.Tools;
 using onscreen.UndoRedo;
 using onscreen.UndoRedo.Model;
 using Paint.UndoRedo;
@@ -31,6 +34,7 @@ namespace onscreen.Controls
             if (e.Property == CurrentToolProperty)
             {
                 CurrentTool.Initialize(this);
+                RemoveAllEmptyControls(this);
             }
 
             base.OnPropertyChanged(e);
@@ -39,7 +43,7 @@ namespace onscreen.Controls
         private bool _isActiveDrawing;
 
         private Control _lastCreatedControl;
-
+        
         public DrawingCanvas()
         {
             InitializeComponent();
@@ -69,13 +73,16 @@ namespace onscreen.Controls
 
         private void DrawingCanvas_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (!Util.IsClickedToExistingControl(this, e.GetPosition(this)))
+                RemoveAllEmptyControls(this);
+            
             if (CurrentTool.ToolType != ToolType.Pen && !Util.IsClickedToExistingControl(this, e.GetPosition(this)))
             {
                 _lastCreatedControl =
                     CurrentTool.ProcessCreating(this, new DrawingProperties { Position = e.GetPosition(this) });
                 _isActiveDrawing = true;
                 e.Handled = true;
-            }
+            } 
         }
 
         private void DrawingCanvas_OnPreviewMouseMove(object sender, MouseEventArgs e)
@@ -95,6 +102,11 @@ namespace onscreen.Controls
         private void DrawingCanvas_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
             _isActiveDrawing = false;
+        }
+
+        private void RemoveAllEmptyControls(DrawingCanvas canvas)
+        {
+            TextTool.RemoveAllEmpty(canvas);
         }
     }
 }

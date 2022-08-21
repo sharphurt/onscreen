@@ -22,9 +22,7 @@ public class TextTool : ITool
     }
 
     public Control ProcessCreating(DrawingCanvas canvas, DrawingProperties properties)
-    {
-        RemoveAllEmpty(canvas);
-
+    { 
         var textField = new TextField();
 
         textField.Margin = new Thickness(
@@ -32,10 +30,10 @@ public class TextTool : ITool
             properties.Position.Y - textField.MinHeight, 0, 0);
 
         textField.DeleteEvent += () => canvas.Children.Remove(textField);
-        
+
         canvas.Children.Add(textField);
         textField.Focus();
-        
+
         return textField;
     }
 
@@ -51,7 +49,7 @@ public class TextTool : ITool
         control.ContentContainer.Height = Math.Abs(cursorPosition.Y - controlY);
     }
 
-    private void RemoveAllEmpty(DrawingCanvas canvas)
+    public static void RemoveAllEmpty(DrawingCanvas canvas)
     {
         var allEmpty = (from child in canvas.Children.OfType<TextField>()
             let text = child.TextBox.Text
