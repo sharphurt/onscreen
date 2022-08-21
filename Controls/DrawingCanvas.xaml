@@ -3,17 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:controls="clr-namespace:onscreen.Controls"
         mc:Ignorable="d"
         MouseUp="DrawingCanvas_OnMouseUp"
         PreviewMouseUp="DrawingCanvas_OnPreviewMouseUp"
         PreviewMouseDown="DrawingCanvas_OnPreviewMouseDown"
         PreviewMouseMove="DrawingCanvas_OnPreviewMouseMove"
         x:Name="paintWorkspace" Background="#01ffffff">
-    <InkCanvas x:Name="InkCanvas" Background="#01ffffff"
+    <controls:InkBoard x:Name="InkCanvas" Background="#01ffffff"
                Width="{Binding Path=ActualWidth, ElementName=paintWorkspace}"
                Height="{Binding Path=ActualHeight, ElementName=paintWorkspace}" Focusable="True">
-        <InkCanvas.DefaultDrawingAttributes>
-            <DrawingAttributes Color="White" FitToCurve="True" />
-        </InkCanvas.DefaultDrawingAttributes>
-    </InkCanvas>
+    </controls:InkBoard>
 </Canvas>

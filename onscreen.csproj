@@ -67,6 +67,9 @@
         <Compile Include="Controls\DrawingCanvas.xaml.cs">
           <DependentUpon>DrawingCanvas.xaml</DependentUpon>
         </Compile>
+        <Compile Include="Controls\InkBoard.xaml.cs">
+          <DependentUpon>InkBoard.xaml</DependentUpon>
+        </Compile>
         <Compile Include="Controls\TextField.xaml.cs">
           <DependentUpon>TextField.xaml</DependentUpon>
         </Compile>
@@ -85,6 +88,7 @@
         <Compile Include="ViewModel\TextFieldViewModel.cs" />
         <Compile Include="ViewModel\WhiteBoardViewModel.cs" />
         <Page Include="Controls\DrawingCanvas.xaml" />
+        <Page Include="Controls\InkBoard.xaml" />
         <Page Include="Controls\TextField.xaml" />
         <Page Include="Resources\ControlTemplates.xaml" />
         <Page Include="Resources\Images\Images.xaml" />
