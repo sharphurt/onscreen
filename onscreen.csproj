@@ -127,6 +127,15 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include=".gitignore" />
+      <Content Include="Resources\Images\eraser.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\Images\highlighter.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\Images\pen.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <Content Include="Resources\Images\move.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>

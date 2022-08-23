@@ -11,7 +11,25 @@
         PreviewMouseMove="DrawingCanvas_OnPreviewMouseMove"
         x:Name="paintWorkspace" Background="#01ffffff">
     <controls:InkBoard x:Name="InkCanvas" Background="#01ffffff"
-               Width="{Binding Path=ActualWidth, ElementName=paintWorkspace}"
-               Height="{Binding Path=ActualHeight, ElementName=paintWorkspace}" Focusable="True">
+                       Width="{Binding Path=ActualWidth, ElementName=paintWorkspace}"
+                       Height="{Binding Path=ActualHeight, ElementName=paintWorkspace}" Focusable="True">
     </controls:InkBoard>
+
+    <StackPanel x:Name="StackPanel" Width="913" Height="132" Background="White" Orientation="Horizontal">
+        <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3" Focusable="False"
+                     Margin="38,0,16,0">
+            <Image Source="{StaticResource EraserIcon}" />
+        </RadioButton>
+
+        <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3" Focusable="False"
+                     Margin="0,0,16,0">
+            <Image Source="{StaticResource PenIcon}" />
+        </RadioButton>
+
+        <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3" Focusable="False">
+            <Image Source="{StaticResource HighligheterIcon}" />
+        </RadioButton>
+
+        <WrapPanel x:Name="ColorPalleteWrapPanel" Margin="290,0,0,0" Width="320" Height="74" />
+    </StackPanel>
 </Canvas>

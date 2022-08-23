@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
@@ -21,12 +22,14 @@ public partial class InkBoard : InkCanvas
 
     private DrawingAttributes _drawingAttributes = new DrawingAttributes
     {
-        Color = Color.FromRgb(255, 255, 255), Width = 1, Height = 1, FitToCurve = true
+        Color = Color.FromRgb(255, 255, 255), Width = 2, Height = 2, FitToCurve = true
     };
 
     public InkBoard()
     {
         InitializeComponent();
+
+        DefaultDrawingAttributes = _drawingAttributes;
     }
 
     private int GetStepFromWidth(int width)
@@ -51,7 +54,7 @@ public partial class InkBoard : InkCanvas
 
     private void ChangePenSize(bool direction)
     {
-        if (_drawingAttributes.Width is <= 1 or >= 500)
+        if ((_drawingAttributes.Width <= 1 && !direction) || (_drawingAttributes.Width >= 500 && direction))
             return;
 
         var step = GetStepFromWidth((int)_drawingAttributes.Width) * (direction ? 1 : -1);
