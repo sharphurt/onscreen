@@ -4,32 +4,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:controls="clr-namespace:onscreen.Controls"
+        xmlns:imaging="clr-namespace:System.Drawing.Imaging;assembly=System.Drawing"
         mc:Ignorable="d"
         MouseUp="DrawingCanvas_OnMouseUp"
         PreviewMouseUp="DrawingCanvas_OnPreviewMouseUp"
         PreviewMouseDown="DrawingCanvas_OnPreviewMouseDown"
         PreviewMouseMove="DrawingCanvas_OnPreviewMouseMove"
         x:Name="paintWorkspace" Background="#01ffffff">
-    <controls:InkBoard x:Name="InkCanvas" Background="#01ffffff"
-                       Width="{Binding Path=ActualWidth, ElementName=paintWorkspace}"
-                       Height="{Binding Path=ActualHeight, ElementName=paintWorkspace}" Focusable="True">
-    </controls:InkBoard>
+    <InkCanvas x:Name="InkCanvas" Background="#01ffffff"
+               Width="{Binding Path=ActualWidth, ElementName=paintWorkspace}"
+               Height="{Binding Path=ActualHeight, ElementName=paintWorkspace}" Focusable="True">
+    </InkCanvas>
 
-    <StackPanel x:Name="StackPanel" Width="913" Height="132" Background="White" Orientation="Horizontal">
-        <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3" Focusable="False"
-                     Margin="38,0,16,0">
-            <Image Source="{StaticResource EraserIcon}" />
-        </RadioButton>
+    <Grid x:Name="ToolsPanel" Width="913" Height="132" Background="White">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="38,0,0,0">
+            <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3"
+                         Focusable="False"
+                         Margin="0,0,16,0" Checked="EraserToolButton_OnChecked">
+                <Image Source="{StaticResource EraserIcon}" />
+            </RadioButton>
 
-        <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3" Focusable="False"
-                     Margin="0,0,16,0">
-            <Image Source="{StaticResource PenIcon}" />
-        </RadioButton>
+            <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3"
+                         Focusable="False"
+                         IsChecked="True" Margin="0,0,16,0" Checked="PenToolButton_OnChecked">
+                <Image Source="{StaticResource PenIcon}" />
+            </RadioButton>
 
-        <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3" Focusable="False">
-            <Image Source="{StaticResource HighligheterIcon}" />
-        </RadioButton>
+            <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3"
+                         Focusable="False" Margin="0,0,16,0"
+                         Checked="HighlighterToolButton_OnChecked">
+                <Image Source="{StaticResource HighligheterIcon}" />
+            </RadioButton>
 
-        <WrapPanel x:Name="ColorPalleteWrapPanel" Margin="290,0,0,0" Width="320" Height="74" />
-    </StackPanel>
+            <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3"
+                         Focusable="False"
+                         Checked="SelectButton_OnChecked">
+                <Image Source="{StaticResource SelectIcon}" />
+            </RadioButton>
+        </StackPanel>
+        <controls:ColorPalette x:Name="ColorPalette" HorizontalAlignment="Right" VerticalAlignment="Center" />
+    </Grid>
 </Canvas>

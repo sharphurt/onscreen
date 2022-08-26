@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -38,9 +40,36 @@ namespace onscreen.Controls
             base.OnPropertyChanged(e);
         }
 
+        private readonly Dictionary<int, int> _penWidthChangeStep = new Dictionary<int, int>
+        {
+            { 20, 1 },
+            { 50, 5 },
+            { 100, 10 },
+            { 250, 50 },
+            { 500, 100 }
+        };
+        
+        private readonly DrawingAttributes _drawingAttributes = new DrawingAttributes
+        {
+            Color = Color.FromRgb(255, 255, 255), Width = 2, Height = 2, FitToCurve = true
+        };
+        
         private bool _isActiveDrawing;
 
         private Control _lastCreatedControl;
+
+        private bool _isEraseByStroke
+        {
+            set
+            {
+                InkCanvas.EditingMode = value switch
+                {
+                    true when InkCanvas.EditingMode == InkCanvasEditingMode.EraseByPoint => InkCanvasEditingMode.EraseByStroke,
+                    false when InkCanvas.EditingMode == InkCanvasEditingMode.EraseByStroke => InkCanvasEditingMode.EraseByPoint,
+                    _ => InkCanvas.EditingMode
+                };
+            }
+        }
 
         public DrawingCanvas()
         {
@@ -50,62 +79,93 @@ namespace onscreen.Controls
 
             SizeChanged += (_, _) =>
             {
-                var left = (ActualWidth - StackPanel.ActualWidth) / 2;
-                var top = (ActualHeight - StackPanel.ActualHeight);
+                var left = (ActualWidth - ToolsPanel.ActualWidth) / 2;
+                var top = (ActualHeight - ToolsPanel.ActualHeight);
 
-                StackPanel.Margin = new Thickness(left, top, 0, 0);
+                ToolsPanel.Margin = new Thickness(left, top, 0, 0);
             };
 
-            GenerateColorPalleteButtons(new List<Color>
-            {
-                Color.FromRgb(255, 255, 255),
-                Color.FromRgb(128, 128, 128),
-                Color.FromRgb(192, 0, 0),
-                Color.FromRgb(255, 0, 0),
-                Color.FromRgb(255, 138, 0),
-                Color.FromRgb(241, 233, 34),
-                Color.FromRgb(0, 176, 80),
-
-                Color.FromRgb(204, 204, 204),
-                Color.FromRgb(0, 0, 0),
-                Color.FromRgb(0, 176, 240),
-                Color.FromRgb(0, 112, 192),
-                Color.FromRgb(0, 32, 96),
-                Color.FromRgb(112, 48, 160),
-                Color.FromRgb(255, 64, 196)
-            });
-
+            ColorPalette.OnPaletteChangingColor += OnPalleteColorChange;
+            
+            InkCanvas.DefaultDrawingAttributes = _drawingAttributes;
+            
             var mementoDesigner = new InkCanvasMementoDesigner(InkCanvas);
             _undoRedoCaretaker = new UndoRedoCaretaker(mementoDesigner);
             _undoRedoCaretaker.Initialize();
         }
-
-        void GenerateColorPalleteButtons(List<Color> colors)
+        
+        void OnPalleteColorChange(Color color)
         {
-            var colorButtonControlTemplate =
-                (ControlTemplate)Application.Current.Resources["ColorPalleteRadioButtonControlTemplate"];
-            var whiteButtonControlTemplate =
-                (ControlTemplate)Application.Current.Resources["ColorPaletteWhiteRadioButtonControlTemplate"];
+            _drawingAttributes.Color = color;
+            InkCanvas.DefaultDrawingAttributes = _drawingAttributes;
+        }
+        
+        private int GetStepFromWidth(int width)
+        {
+            int step = 1;
 
-            foreach (var button in colors.Select(color => new RadioButton
-                     {
-                         Margin = new Thickness(0, 0, 14, 14),
-                         Width = 30,
-                         Height = 30,
-                         Background = new SolidColorBrush(color),
-                         Template = color == Colors.White ? whiteButtonControlTemplate : colorButtonControlTemplate,
-                         Focusable = false
-                     }))
+            foreach (var key in _penWidthChangeStep.Keys.Where(key => width >= key))
             {
-                ColorPalleteWrapPanel.Children.Add(button);
+                step = _penWidthChangeStep[key];
             }
+
+            return step;
         }
 
-        void DrawingCanvas_OnMouseUp(object sender, MouseButtonEventArgs e)
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        {
+            base.OnMouseWheel(e);
+            ChangePenSize(e.Delta > 0);
+
+            InkCanvas.DefaultDrawingAttributes = _drawingAttributes;
+        }
+
+        private void ChangePenSize(bool direction)
+        {
+            if ((_drawingAttributes.Width <= 1 && !direction) || (_drawingAttributes.Width >= 500 && direction))
+                return;
+
+            var step = GetStepFromWidth((int)_drawingAttributes.Width) * (direction ? 1 : -1);
+
+            _drawingAttributes.Width += step;
+            _drawingAttributes.Height += step;
+
+            SetEraserSize(_drawingAttributes.Width);
+        }
+
+        private void SetEraserSize(double size)
+        {
+            var currentEditingMode = InkCanvas.EditingMode;
+
+            InkCanvas.EraserShape = new EllipseStylusShape(size, size);
+            InkCanvas.EditingMode = InkCanvasEditingMode.Ink;
+
+            InkCanvas.EditingMode = currentEditingMode;
+        }
+        
+        private void DrawingCanvas_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
                 _undoRedoCaretaker.StoreState();
+            }
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            if (e.Key == Key.LeftCtrl && e.IsDown)
+            {
+                _isEraseByStroke = true;
+            }
+        }
+
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+            if (e.Key == Key.LeftCtrl && e.IsUp)
+            {
+                _isEraseByStroke = false;
             }
         }
 
@@ -153,6 +213,33 @@ namespace onscreen.Controls
         private void RemoveAllEmptyControls(DrawingCanvas canvas)
         {
             TextTool.RemoveAllEmpty(canvas);
+        }
+
+        private void EraserToolButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            _drawingAttributes.IsHighlighter = false;
+            InkCanvas.DefaultDrawingAttributes = _drawingAttributes;
+            InkCanvas.EditingMode = InkCanvasEditingMode.EraseByPoint;
+            InkCanvas.EraserShape = new EllipseStylusShape(_drawingAttributes.Width, _drawingAttributes.Height);
+        }
+
+        private void PenToolButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            _drawingAttributes.IsHighlighter = false;
+            InkCanvas.DefaultDrawingAttributes = _drawingAttributes;
+            InkCanvas.EditingMode = InkCanvasEditingMode.Ink;
+        }
+
+        private void HighlighterToolButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            _drawingAttributes.IsHighlighter = true;
+            InkCanvas.DefaultDrawingAttributes = _drawingAttributes;
+            InkCanvas.EditingMode = InkCanvasEditingMode.Ink;
+        }
+
+        private void SelectButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            InkCanvas.EditingMode = InkCanvasEditingMode.Select;
         }
     }
 }
