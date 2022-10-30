@@ -35,10 +35,6 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="HandyControl, Version=3.3.0.0, Culture=neutral, PublicKeyToken=45be8712787a1e5b">
-          <HintPath>packages\HandyControl.3.3.0\lib\net48\HandyControl.dll</HintPath>
-          <Private>True</Private>
-        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
@@ -121,7 +117,6 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config" />
-        <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
       <Content Include=".gitignore" />

@@ -22,7 +22,6 @@
                     <Image Source="{StaticResource BoldIcon}" Width="16" Height="16" />
                 </ToggleButton>
                 <ToggleButton x:Name="ButtonItalic" Style="{StaticResource ToggleButtonStyle}"
-                              hc:IconElement.Geometry="{StaticResource BoldGeometry}"
                               Checked="ButtonItalic_OnChecked"
                               Unchecked="ButtonItalic_OnUnchecked"
                               Margin="0, 8, 8, 8">
