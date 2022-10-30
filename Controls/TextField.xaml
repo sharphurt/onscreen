@@ -6,7 +6,7 @@
              xmlns:hc="https://handyorg.github.io/handycontrol"
              d:DesignWidth="480" d:DesignHeight="360"
              Padding="5"
-             Focusable="True"
+             Focusable="True" 
              x:Name="TextFieldControl"
              GotFocus="TextField_OnGotFocus"
              LostFocus="TextField_OnLostFocus"

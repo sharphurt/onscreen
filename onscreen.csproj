@@ -130,6 +130,9 @@
       <Content Include="Resources\Images\eraser.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>
+      <Content Include="Resources\Images\text.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
       <Content Include="Resources\Images\pen.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Content>

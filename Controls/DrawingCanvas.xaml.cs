@@ -23,7 +23,11 @@ namespace onscreen.Controls
         public ITool CurrentTool
         {
             get { return (ITool)GetValue(CurrentToolProperty); }
-            set { SetValue(CurrentToolProperty, value); }
+            set
+            {
+                SetValue(CurrentToolProperty, value);
+                SetTextLayerActivity(value.ToolType == ToolType.Text);
+            }
         }
 
         public static readonly DependencyProperty CurrentToolProperty =
@@ -102,7 +106,7 @@ namespace onscreen.Controls
         
         private int GetStepFromWidth(int width)
         {
-            int step = 1;
+            var step = 1;
 
             foreach (var key in _penWidthChangeStep.Keys.Where(key => width >= key))
             {
@@ -136,11 +140,14 @@ namespace onscreen.Controls
         private void SetEraserSize(double size)
         {
             var currentEditingMode = InkCanvas.EditingMode;
-
+            var lastColor = _drawingAttributes.Color;
+            
             InkCanvas.EraserShape = new EllipseStylusShape(size, size);
+            InkCanvas.DefaultDrawingAttributes.Color = Colors.White;
             InkCanvas.EditingMode = InkCanvasEditingMode.Ink;
-
+            
             InkCanvas.EditingMode = currentEditingMode;
+            InkCanvas.DefaultDrawingAttributes.Color = lastColor;
         }
         
         private void DrawingCanvas_OnMouseUp(object sender, MouseButtonEventArgs e)
@@ -217,6 +224,8 @@ namespace onscreen.Controls
 
         private void EraserToolButton_OnChecked(object sender, RoutedEventArgs e)
         {
+            CurrentTool = new PenTool();
+            
             _drawingAttributes.IsHighlighter = false;
             InkCanvas.DefaultDrawingAttributes = _drawingAttributes;
             InkCanvas.EditingMode = InkCanvasEditingMode.EraseByPoint;
@@ -225,6 +234,8 @@ namespace onscreen.Controls
 
         private void PenToolButton_OnChecked(object sender, RoutedEventArgs e)
         {
+            CurrentTool = new PenTool();
+            
             _drawingAttributes.IsHighlighter = false;
             InkCanvas.DefaultDrawingAttributes = _drawingAttributes;
             InkCanvas.EditingMode = InkCanvasEditingMode.Ink;
@@ -232,14 +243,34 @@ namespace onscreen.Controls
 
         private void HighlighterToolButton_OnChecked(object sender, RoutedEventArgs e)
         {
+            CurrentTool = new PenTool();
+
             _drawingAttributes.IsHighlighter = true;
             InkCanvas.DefaultDrawingAttributes = _drawingAttributes;
             InkCanvas.EditingMode = InkCanvasEditingMode.Ink;
         }
-
+        
+        private void TextToolButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            CurrentTool = new TextTool();
+            
+            InkCanvas.EditingMode = InkCanvasEditingMode.None;
+        }
+        
         private void SelectButton_OnChecked(object sender, RoutedEventArgs e)
         {
+            CurrentTool = new PenTool();
+
             InkCanvas.EditingMode = InkCanvasEditingMode.Select;
+        }
+
+        private void SetTextLayerActivity(bool isActive)
+        {
+            foreach (var textField in Children.OfType<TextField>())
+            {
+                textField.IsEnabled = isActive;
+                textField.IsHitTestVisible = isActive;
+            }
         }
     }
 }

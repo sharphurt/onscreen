@@ -19,25 +19,31 @@
     <Grid x:Name="ToolsPanel" Width="913" Height="132" Background="White">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="38,0,0,0">
             <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3"
-                         Focusable="False"
+                         Focusable="True"
                          Margin="0,0,16,0" Checked="EraserToolButton_OnChecked">
                 <Image Source="{StaticResource EraserIcon}" />
             </RadioButton>
 
             <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3"
-                         Focusable="False"
+                         Focusable="True"
                          IsChecked="True" Margin="0,0,16,0" Checked="PenToolButton_OnChecked">
                 <Image Source="{StaticResource PenIcon}" />
             </RadioButton>
 
             <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3"
-                         Focusable="False" Margin="0,0,16,0"
+                         Focusable="True" Margin="0,0,16,0"
                          Checked="HighlighterToolButton_OnChecked">
                 <Image Source="{StaticResource HighligheterIcon}" />
             </RadioButton>
+            
+            <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3"
+                         Focusable="True" Margin="0,0,16,0"
+                         Checked="TextToolButton_OnChecked">
+                <Image Source="{StaticResource TextIcon}" />
+            </RadioButton>
 
             <RadioButton Template="{StaticResource PenToolButtonControlTemplate}" Background="#F3F3F3"
-                         Focusable="False"
+                         Focusable="True"
                          Checked="SelectButton_OnChecked">
                 <Image Source="{StaticResource SelectIcon}" />
             </RadioButton>
