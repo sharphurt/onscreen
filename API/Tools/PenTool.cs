@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using onscreen.Controls;
 
 namespace onscreen.API.Tools

@@ -59,7 +59,6 @@
         </ApplicationDefinition>
         <Compile Include="API\ITool.cs" />
         <Compile Include="API\DrawingProperties.cs" />
-        <Compile Include="API\Selection.cs" />
         <Compile Include="API\Tools\PenTool.cs" />
         <Compile Include="API\Tools\TextTool.cs" />
         <Compile Include="API\ToolType.cs" />
@@ -86,7 +85,6 @@
         <Compile Include="ViewModel\BaseCommand.cs" />
         <Compile Include="ViewModel\BaseViewModel.cs" />
         <Compile Include="ViewModel\TextFieldViewModel.cs" />
-        <Compile Include="ViewModel\WhiteBoardViewModel.cs" />
         <Page Include="Controls\ColorPalette.xaml" />
         <Page Include="Controls\DrawingCanvas.xaml" />
         <Page Include="Controls\TextField.xaml" />

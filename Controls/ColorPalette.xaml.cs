@@ -7,7 +7,7 @@ using System.Windows.Media;
 
 namespace onscreen.Controls;
 
-public partial class ColorPalette : UserControl
+public partial class ColorPalette
 {
     private readonly List<Color> _paletteColors = new List<Color>
     {

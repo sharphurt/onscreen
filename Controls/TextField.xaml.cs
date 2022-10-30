@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using HandyControl.Tools.Extension;
 using onscreen.API;
 
 namespace onscreen.Controls;
 
-public partial class TextField : UserControl
+public partial class TextField
 {
     public TextField()
     {

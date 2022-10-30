@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
-using System.Windows.Markup;
 using System.Windows.Media;
 using onscreen.API;
 using onscreen.API.Tools;
@@ -16,16 +14,18 @@ using Color = System.Windows.Media.Color;
 
 namespace onscreen.Controls
 {
-    public partial class DrawingCanvas : Canvas
+    public partial class DrawingCanvas
     {
         private readonly IMementoCaretaker _undoRedoCaretaker;
 
+        private ITool _currentTool = new PenTool();
+        
         public ITool CurrentTool
         {
-            get { return (ITool)GetValue(CurrentToolProperty); }
+            get => _currentTool;
             set
             {
-                SetValue(CurrentToolProperty, value);
+                _currentTool = value;
                 SetTextLayerActivity(value.ToolType == ToolType.Text);
             }
         }

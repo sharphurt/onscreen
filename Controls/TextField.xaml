@@ -57,11 +57,8 @@
 
                 <StackPanel Orientation="Horizontal" Margin="12, 8">
                     <TextBlock Text="A" FontSize="12" VerticalAlignment="Center" />
-                    <Slider Minimum="12" Maximum="40" Width="100" Margin="8,0"
-                            VerticalAlignment="Center"
-                            TickFrequency="1"
-                            IsSnapToTickEnabled="True"
-                            ValueChanged="RangeBase_OnValueChanged" />
+                    <Slider Minimum="12" Maximum="40" Width="100" Margin="8,0" Value="20" VerticalAlignment="Center"
+                            TickFrequency="1" IsSnapToTickEnabled="True" ValueChanged="RangeBase_OnValueChanged" />
                     <TextBlock Text="A" FontSize="20" VerticalAlignment="Center" />
                 </StackPanel>
                 
@@ -74,7 +71,7 @@
               VerticalAlignment="Top"
               Margin="0,55,0,0"
               MinHeight="90" MinWidth="120">
-            <TextBox x:Name="TextBox" Style="{StaticResource TextFieldStyle}" FontFamily="Arial" FontSize="12" />
+            <TextBox x:Name="TextBox" Style="{StaticResource TextFieldStyle}" FontFamily="Arial" FontSize="20" />
             <Grid x:Name="TransformControls">
                 <Button Width="6" Height="6" PreviewMouseMove="BottomRightControl_MouseMove"
                         HorizontalAlignment="Right"

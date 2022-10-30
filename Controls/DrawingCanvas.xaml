@@ -4,7 +4,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:controls="clr-namespace:onscreen.Controls"
-        xmlns:imaging="clr-namespace:System.Drawing.Imaging;assembly=System.Drawing"
         mc:Ignorable="d"
         MouseUp="DrawingCanvas_OnMouseUp"
         PreviewMouseUp="DrawingCanvas_OnPreviewMouseUp"
